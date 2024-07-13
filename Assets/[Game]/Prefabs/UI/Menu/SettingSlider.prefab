@@ -353,7 +353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4374489466898722938}
   m_Layer: 5
-  m_Name: SettingItem
+  m_Name: SettingSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
