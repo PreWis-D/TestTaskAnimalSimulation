@@ -76,6 +76,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38160b339484b2b4ea9c94c475bdd54d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnersContainer: {fileID: 4750311552397359415, guid: e3a1af00f6bd93b45b52efd22e2f6b74, type: 3}
+  _animalPrefab: {fileID: 7499936921632691604, guid: 84d17d6ff9288a844bbf61d6d0c9ee8b, type: 3}
+  _foodPrefab: {fileID: 5279819624798083360, guid: 07b0c35f94ec9074b83e716ee38a76bb, type: 3}
 --- !u!1 &2314033968146386053
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,13 +259,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2390177370121010899}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 10, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3942748060196670995}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!20 &8395346700996862205
 Camera:
   m_ObjectHideFlags: 0
@@ -296,7 +299,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 100
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
