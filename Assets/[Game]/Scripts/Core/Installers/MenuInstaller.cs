@@ -1,4 +1,5 @@
 using Reflex.Core;
+using System;
 using UnityEngine;
 
 public class MenuInstaller : MonoBehaviour, IInstaller
@@ -12,6 +13,7 @@ public class MenuInstaller : MonoBehaviour, IInstaller
         _containerBuilder = containerBuilder;
         
         BindMenu();
+        BindSimulationData();
     }
 
     private void BindMenu()
@@ -24,5 +26,11 @@ public class MenuInstaller : MonoBehaviour, IInstaller
 
         _containerBuilder
             .AddSingleton(menu);
+    }
+
+    private void BindSimulationData()
+    {
+        _containerBuilder
+            .AddSingleton(typeof(SimulationData));
     }
 }

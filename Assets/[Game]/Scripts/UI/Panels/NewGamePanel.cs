@@ -8,11 +8,13 @@ public class NewGamePanel : BasePanel
     [SerializeField] private Button _backButton;
     [SerializeField] private SettingSlider[] _settingSliders;
 
+    private SimulationData _simulationData;
+
     public event Action StartGameButtonClicked;
     public event Action BackButtonClicked;
 
     #region Core
-    public void Init()
+    public void Init(SimulationData simulationData)
     {
         for (int i = 0; i < _settingSliders.Length; i++)
             _settingSliders[i].Init();
@@ -54,6 +56,8 @@ public class NewGamePanel : BasePanel
 
     private void OnStartGameButtonClicked()
     {
+        SetDataValues();
+
         StartGameButtonClicked?.Invoke();
     }
 
@@ -84,6 +88,25 @@ public class NewGamePanel : BasePanel
 
         if (currentSlider.Slider.value > currentSlider.Slider.maxValue)
             currentSlider.SetSliderValue(targetValue);
+    }
+
+    private void SetDataValues()
+    {
+        for (int i = 0; i < _settingSliders.Length; i++)
+        {
+            switch (_settingSliders[i].Type)
+            {
+                case SettingSliderType.Area:
+                    _simulationData.SetFieldSize((int)_settingSliders[i].Slider.value);
+                    break;
+                case SettingSliderType.Count:
+                    _simulationData.SetMaxCount((int)_settingSliders[i].Slider.value);
+                    break;
+                case SettingSliderType.Speed:
+                    _simulationData.SetMoveSpeed((int)_settingSliders[i].Slider.value);
+                    break;
+            }
+        }
     }
 
     private void OnDestroy()

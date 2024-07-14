@@ -6,10 +6,10 @@ public class Menu : MonoBehaviour
     [SerializeField] private NewGamePanel _newGamePanel;
 
     #region Core
-    public void Init()
+    public void Init(SimulationData simulationData)
     {
         _mainPanel.Init();
-        _newGamePanel.Init();
+        _newGamePanel.Init(simulationData);
 
         _newGamePanel.Hide();
 
