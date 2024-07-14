@@ -15,15 +15,15 @@ namespace SpawnerExample
             _objectsCount = 0;
         }
 
-        private void OnEnable()
-        {
-            _spawner.Spawned += OnSpawned;
-        }
+        //private void OnEnable()
+        //{
+        //    _spawner.Spawned += OnSpawned;
+        //}
 
-        private void OnDisable()
-        {
-            _spawner.Spawned -= OnSpawned;
-        }
+        //private void OnDisable()
+        //{
+        //    _spawner.Spawned -= OnSpawned;
+        //}
 
         private void OnSpawned()
         {

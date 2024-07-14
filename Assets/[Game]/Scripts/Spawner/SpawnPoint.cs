@@ -7,7 +7,7 @@ namespace SpawnerExample
     {
         private SphereCollider _collider;
         private bool _isEmpty = true;
-        private Character _spawnObject;
+        //private Character _spawnObject;
 
         public bool IsEmpty => _isEmpty;
 
@@ -17,11 +17,11 @@ namespace SpawnerExample
             _collider.isTrigger = true;
         }
 
-        public void TakePosition(Character character)
-        {
-            if (_spawnObject == null)
-                _spawnObject = character;
-        }
+        //public void TakePosition(Character character)
+        //{
+        //    if (_spawnObject == null)
+        //        _spawnObject = character;
+        //}
 
         public void TakePosition()
         {

@@ -4,36 +4,26 @@ namespace SpawnerExample
 {
     public class SpawnZoneInitializer : MonoBehaviour
     {
-        [SerializeField] private int _step;
-        [SerializeField] private Vector2Int _spawnZoneSize;
         [SerializeField] private SpawnZone _spawnZone;
 
+        private Vector2Int _spawnZoneSize;
+        private int _step = 2;
         private int _minValue = 1;
-        private Vector2Int _currentSize;
         private float _offset = 0.5f;
 
         public SpawnZone SpawnZone => _spawnZone;
 
-        private void Awake()
+        private void OnValidate()
         {
-            _currentSize = _spawnZoneSize;
-
-            if (_step <= 0)
+            if (_step < 1)
                 _step = _minValue;
-
-            Init();
         }
 
-        public void ChangeSize()
+        public void Init(int sizeValue)
         {
-            _spawnZoneSize = new Vector2Int(_currentSize.x, _currentSize.y);
-            _currentSize = _spawnZoneSize;
-            Init();
-        }
+            _spawnZoneSize = new Vector2Int(sizeValue, sizeValue);
 
-        private void Init()
-        {
-            _spawnZone.Initialize(_spawnZoneSize, _step, _offset);
+            _spawnZone.CreateZone(_spawnZoneSize, _step, _offset);
         }
 
 #if UNITY_EDITOR
