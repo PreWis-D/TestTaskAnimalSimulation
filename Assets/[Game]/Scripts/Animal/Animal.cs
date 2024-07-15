@@ -26,7 +26,6 @@ public class Animal : MonoBehaviour
         _stateMachine.Init(this);
 
         _colorChanger.GenerateRandomColor();
-        Debug.LogWarning(_colorChanger.Color);
 
         _components.Add(_mover);
         _components.Add(_stateMachine);
