@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class FoodSpawner
     private AnimalSpawner _animalSpawner;
     private Food _foodPrefab;
     private FoodsContainer _foodsContainer;
+    private float _delaySpawn = 1f;
 
     public FoodSpawner(SpawnZone spawnZone, AnimalSpawner animalSpawner, Food foodPrefab, FoodsContainer foodsContainer)
     {
@@ -30,8 +32,10 @@ public class FoodSpawner
         }
     }
 
-    public void Spawn(Animal animal)
+    public async UniTask Spawn(Animal animal)
     {
+        await UniTask.Delay((int)_delaySpawn * 1000);
+
         if (_foodsContainer.Foods.Count < 1)
         {
             Create(animal);
@@ -53,9 +57,9 @@ public class FoodSpawner
         }
     }
 
-    private void OnAnimalSpawned(Animal animal)
+    private async void OnAnimalSpawned(Animal animal)
     {
-        Spawn(animal);
+        await Spawn(animal);
     }
 
     private void Create(Animal animal)

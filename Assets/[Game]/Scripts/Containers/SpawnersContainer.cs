@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class SpawnersContainer : MonoBehaviour
 {
+    [SerializeField] private ParticleController _eatEffect;
     [SerializeField] private AnimalsContainer _animalsContainer;
     [SerializeField] private FoodsContainer _foodsContainer;
+    [SerializeField] private VFXsContainer _vFXsContainer;
     [SerializeField] private SpawnZone _spawnZone;
 
     private AnimalSpawner _animalSpawner;
     private FoodSpawner _foodSpawner;
+    private VFXsSpawner _vFXsSpawner;
     private SimulationData _simulationData;
     private ProgressSaver _progressSaver;
 
@@ -23,6 +26,7 @@ public class SpawnersContainer : MonoBehaviour
             , _progressSaver.IsLoadState ? _progressSaver.SpawnForSecond : _simulationData.SpawnForSecond);
 
         _foodSpawner = new FoodSpawner(_spawnZone, _animalSpawner, foodPrefab, _foodsContainer);
+        _vFXsSpawner = new VFXsSpawner(_vFXsContainer);
 
         _animalsContainer.AnimalFoodEated += OnAnimalFoodEated;
 
@@ -63,9 +67,10 @@ public class SpawnersContainer : MonoBehaviour
         _foodSpawner.Load(_progressSaver);
     }
 
-    private void OnAnimalFoodEated(Animal animal)
+    private async void OnAnimalFoodEated(Animal animal)
     {
-        _foodSpawner.Spawn(animal);
+        _vFXsSpawner.Spawn(_eatEffect, animal.transform.position);
+        await _foodSpawner.Spawn(animal);
     }
 
     private void OnDestroy()
