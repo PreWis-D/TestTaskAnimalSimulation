@@ -8,7 +8,7 @@ namespace SpawnerExample
         [SerializeField] private SpawnPoint _spawnPointPrefab;
 
         private Vector2Int _spawnZoneSize;
-        private int _step = 2;
+        private int _step = 1;
         private int _minValue = 1;
         private float _offset = 0.5f;
 
@@ -44,7 +44,7 @@ namespace SpawnerExample
         }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = new Color(1, 0, 0, 1f);
             Vector2 offset = new Vector2((_spawnZoneSize.x - _step) * _offset, (_spawnZoneSize.y - _step) * _offset);

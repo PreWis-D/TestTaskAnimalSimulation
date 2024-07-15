@@ -26,7 +26,7 @@ public class AnimalSpawner
         _animalPrefab = animalPrefab;
 
         _maxCount = simulationData.MaxCount;
-        _spawnCount = simulationData.Movespeed;
+        _spawnCount = simulationData.SpawnForSecond;
 
         _cancellationTokenSource = new CancellationTokenSource();
     }

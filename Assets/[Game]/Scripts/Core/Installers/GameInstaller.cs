@@ -15,6 +15,8 @@ public class GameInstaller : MonoBehaviour, IInstaller
 
         BindSimulationData();
         BindSpawnersContainer();
+        BindAnimalPrefab();
+        BindFoodPrefab();
     }
 
     private void BindSimulationData()

@@ -55,6 +55,6 @@ public enum SettingSliderType
     None,
     Area,
     Count,
-    Speed,
+    SpawnForSecond,
     TimeScale
 }

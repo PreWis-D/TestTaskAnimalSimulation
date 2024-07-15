@@ -16,8 +16,13 @@ public class NewGamePanel : BasePanel
     #region Core
     public void Init(SimulationData simulationData)
     {
+        _simulationData = simulationData;
+
         for (int i = 0; i < _settingSliders.Length; i++)
             _settingSliders[i].Init();
+
+        CalculateCountValue(GetSlider(SettingSliderType.Count), GetSlider(SettingSliderType.Area));
+        CalculateSpawnForSecond(GetSlider(SettingSliderType.SpawnForSecond), GetSlider(SettingSliderType.Count));
 
         Subscribe();
     }
@@ -50,6 +55,7 @@ public class NewGamePanel : BasePanel
                 CalculateCountValue(GetSlider(SettingSliderType.Count), slider);
                 break;
             case SettingSliderType.Count:
+                CalculateSpawnForSecond(GetSlider(SettingSliderType.SpawnForSecond), slider);
                 break;
         }
     }
@@ -90,6 +96,14 @@ public class NewGamePanel : BasePanel
             currentSlider.SetSliderValue(targetValue);
     }
 
+    private void CalculateSpawnForSecond(SettingSlider currentSlider, SettingSlider targetSlider)
+    {
+        if (currentSlider == null || targetSlider == null)
+            throw new ArgumentNullException("slider null");
+
+        currentSlider.Slider.maxValue = targetSlider.Slider.value;
+    }
+
     private void SetDataValues()
     {
         for (int i = 0; i < _settingSliders.Length; i++)
@@ -102,8 +116,8 @@ public class NewGamePanel : BasePanel
                 case SettingSliderType.Count:
                     _simulationData.SetMaxCount((int)_settingSliders[i].Slider.value);
                     break;
-                case SettingSliderType.Speed:
-                    _simulationData.SetMoveSpeed((int)_settingSliders[i].Slider.value);
+                case SettingSliderType.SpawnForSecond:
+                    _simulationData.SetSpawnForSecond((int)_settingSliders[i].Slider.value);
                     break;
             }
         }

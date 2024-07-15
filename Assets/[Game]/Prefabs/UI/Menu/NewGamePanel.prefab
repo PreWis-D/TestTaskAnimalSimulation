@@ -1271,7 +1271,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1535546823875722271, guid: b180f3045ffc67c44a35be40c8bc6237, type: 3}
       propertyPath: m_text
-      value: speed
+      value: spawn for second
       objectReference: {fileID: 0}
     - target: {fileID: 1535546823875722271, guid: b180f3045ffc67c44a35be40c8bc6237, type: 3}
       propertyPath: m_fontSize

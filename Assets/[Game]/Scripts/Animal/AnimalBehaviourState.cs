@@ -1,5 +1,6 @@
 public enum AnimalBehaviourState
 {
     Idle,
-    Move
+    Move,
+    Eat
 }

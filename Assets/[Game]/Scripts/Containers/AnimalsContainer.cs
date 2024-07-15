@@ -12,6 +12,8 @@ public class AnimalsContainer : MonoBehaviour
     {
         Animals.Add(animal);
         animal.FoodEated += OnFoodEated;
+
+        animal.Activate();
     }
 
     public void Remove(Animal animal)
@@ -22,7 +24,6 @@ public class AnimalsContainer : MonoBehaviour
 
     private void OnFoodEated(Animal animal)
     {
-        animal.TargetFood.gameObject.SetActive(false);
         AnimalFoodEated?.Invoke(animal);
     }
 }

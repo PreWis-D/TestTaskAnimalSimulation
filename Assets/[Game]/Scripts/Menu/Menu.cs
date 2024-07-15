@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
     [SerializeField] private MenuMainPanel _mainPanel;
     [SerializeField] private NewGamePanel _newGamePanel;
+
+    private int _gameScene = 1;
 
     #region Core
     public void Init(SimulationData simulationData)
@@ -47,7 +50,7 @@ public class Menu : MonoBehaviour
 
     private void OnStartGameButtonClicked()
     {
-        // start new game
+        SceneManager.LoadScene(_gameScene);
     }
 
     private void OnBackButtonClicked()

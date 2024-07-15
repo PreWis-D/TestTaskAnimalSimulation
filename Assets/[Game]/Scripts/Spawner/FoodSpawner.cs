@@ -9,8 +9,6 @@ public class FoodSpawner
     private Food _foodPrefab;
     private FoodsContainer _foodsContainer;
 
-    private List<Food> _foodPool = new List<Food>();
-
     public FoodSpawner(SpawnZone spawnZone, AnimalSpawner animalSpawner, Food foodPrefab, FoodsContainer foodsContainer)
     {
         _spawnZone = spawnZone;
@@ -28,18 +26,19 @@ public class FoodSpawner
 
     public void Spawn(Animal animal)
     {
-        if (_foodPool.Count < 1)
+        if (_foodsContainer.Foods.Count < 1)
         {
             Create(animal);
         }
         else
         {
-            foreach (var food in _foodPool)
+            foreach (var food in _foodsContainer.Foods)
             {
-                if (food.gameObject.activeSelf == false)
+                if (_foodsContainer.GetFood() != null)
                 {
                     food.gameObject.SetActive(true);
-                    food.transform.position = SearchSpawnPoint().transform.position;
+                    food.transform.position = SearchSpawnPoint(animal).transform.position;
+                    food.SetColor(animal.ColorChanger.Color);
                     animal.SetFood(food);
                     return;
                 }
@@ -51,14 +50,28 @@ public class FoodSpawner
 
     private void Create(Animal animal)
     {
-        var food = Object.Instantiate(_foodPrefab, SearchSpawnPoint().transform.position, Quaternion.identity, _foodsContainer.transform);
-        _foodPool.Add(food);
+        var food = Object.Instantiate(_foodPrefab, SearchSpawnPoint(animal).transform.position, Quaternion.identity, _foodsContainer.transform);
+        food.SetColor(animal.ColorChanger.Color);
         animal.SetFood(food);
+        _foodsContainer.Add(food);
     }
 
-    private SpawnPoint SearchSpawnPoint()
+    private SpawnPoint SearchSpawnPoint(Animal animal)
     {
-        return null;
+        Collider[] colliders = Physics.OverlapSphere(animal.transform.position, 5);
+        List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            var spawnPoint = colliders[i].GetComponent<SpawnPoint>();
+
+            if (spawnPoint)
+                spawnPoints.Add(spawnPoint);
+        }
+
+        int randomIndex = Random.Range(0, spawnPoints.Count);
+
+        return spawnPoints[randomIndex];
     }
 
     private void OnDestroy()
