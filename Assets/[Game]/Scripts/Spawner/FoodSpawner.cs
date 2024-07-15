@@ -32,16 +32,15 @@ public class FoodSpawner
         }
         else
         {
-            foreach (var food in _foodsContainer.Foods)
+            var food = _foodsContainer.GetFood();
+
+            if (food != null)
             {
-                if (_foodsContainer.GetFood() != null)
-                {
-                    food.gameObject.SetActive(true);
-                    food.transform.position = SearchSpawnPoint(animal).transform.position;
-                    food.SetColor(animal.ColorChanger.Color);
-                    animal.SetFood(food);
-                    return;
-                }
+                food.gameObject.SetActive(true);
+                food.transform.position = SearchSpawnPoint(animal).transform.position;
+                food.SetColor(animal.ColorChanger.Color);
+                animal.SetFood(food);
+                return;
             }
 
             Create(animal);
