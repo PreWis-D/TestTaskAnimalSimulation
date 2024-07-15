@@ -1,9 +1,11 @@
 using Reflex.Core;
+using System;
 using UnityEngine;
 
 public class GameInstaller : MonoBehaviour, IInstaller
 {
     [SerializeField] private SpawnersContainer _spawnersContainer;
+    [SerializeField] private GameplayPanel _gameplayPanelPrefab;
     [SerializeField] private Animal _animalPrefab;
     [SerializeField] private Food _foodPrefab;
 
@@ -15,6 +17,7 @@ public class GameInstaller : MonoBehaviour, IInstaller
 
         BindSimulationData();
         BindSpawnersContainer();
+        BindGameplayPanel();
         BindAnimalPrefab();
         BindFoodPrefab();
     }
@@ -35,6 +38,18 @@ public class GameInstaller : MonoBehaviour, IInstaller
 
         _containerBuilder
             .AddSingleton(spawnersContainer);
+    }
+
+    private void BindGameplayPanel()
+    {
+        var gameplayPlanel = Instantiate(
+            _gameplayPanelPrefab
+            , Vector3.zero
+            , Quaternion.identity
+            , null);
+
+        _containerBuilder
+            .AddSingleton(gameplayPlanel);
     }
 
     private void BindAnimalPrefab()

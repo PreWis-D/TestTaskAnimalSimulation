@@ -7,7 +7,7 @@ public class SettingSlider : MonoBehaviour
 {
     [SerializeField] private SettingSliderType _type;
     [SerializeField] private Slider _slider;
-    [SerializeField] private TMP_Text _valueText;
+    [SerializeField] private TMP_InputField _inputField;
 
     public SettingSliderType Type => _type;
     public Slider Slider => _slider;
@@ -18,6 +18,8 @@ public class SettingSlider : MonoBehaviour
     public void Init()
     {
         Slider.onValueChanged.AddListener(OnValueChanged);
+        _inputField.onValueChanged.AddListener(OnValueChanged);
+
         SetValueText();
     }
 
@@ -39,14 +41,28 @@ public class SettingSlider : MonoBehaviour
         SetValueText();
     }
 
+    private void OnValueChanged(string arg0)
+    {
+        int converting;
+        bool trueConverting;
+
+        trueConverting = int.TryParse(arg0, out converting);
+
+        if (trueConverting == false)
+            SetValueText();
+        else
+            SetSliderValue(converting);
+    }
+
     private void SetValueText()
     {
-        _valueText.text = ((int)_slider.value).ToString();
+        _inputField.text = ((int)_slider.value).ToString();
     }
 
     private void OnDestroy()
     {
         Slider.onValueChanged.RemoveListener(OnValueChanged);
+        _inputField.onValueChanged.RemoveListener(OnValueChanged);
     }
 }
 
