@@ -7,10 +7,20 @@ public class GameplayPanel : BasePanel
     [SerializeField] private Button _saveButton;
     [SerializeField] private SettingSlider _timeSlider;
 
-    public void Init(SimulationData simulationData)
+    private SpawnersContainer _spawnersContainer;
+    private ProgressSaver _progressSaver;
+
+    public void Init(SimulationData simulationData, SpawnersContainer spawnersContainer, ProgressSaver progressSaver)
     {
+        _spawnersContainer = spawnersContainer;
+        _progressSaver = progressSaver;
+
         _timeSlider.Init();
-        _timeSlider.SetSliderValue(simulationData.TimeSpeed);
+
+        if (_progressSaver.IsLoadState == false)
+            _timeSlider.SetSliderValue(simulationData.TimeSpeed);
+        else
+            _timeSlider.SetSliderValue(_progressSaver.GameSpeed);
 
         OnSliderChanged(_timeSlider);
 
@@ -20,7 +30,8 @@ public class GameplayPanel : BasePanel
 
     private void OnSaveButtonClick()
     {
-        throw new NotImplementedException();
+        _progressSaver.SaveGameSpeed(_timeSlider.Slider.value);
+        _spawnersContainer.Save();
     }
 
     private void OnSliderChanged(SettingSlider slider)

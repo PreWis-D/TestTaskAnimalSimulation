@@ -14,6 +14,7 @@ public class MenuInstaller : MonoBehaviour, IInstaller
         
         BindMenu();
         BindSimulationData();
+        BindProgressSaver();
     }
 
     private void BindMenu()
@@ -32,5 +33,11 @@ public class MenuInstaller : MonoBehaviour, IInstaller
     {
         _containerBuilder
             .AddSingleton(typeof(SimulationData));
+    }
+
+    private void BindProgressSaver()
+    {
+        _containerBuilder
+           .AddSingleton(typeof(ProgressSaver));
     }
 }

@@ -6,12 +6,15 @@ public class Menu : MonoBehaviour
     [SerializeField] private MenuMainPanel _mainPanel;
     [SerializeField] private NewGamePanel _newGamePanel;
 
+    private ProgressSaver _progressSaver;
     private int _gameScene = 1;
 
     #region Core
-    public void Init(SimulationData simulationData)
+    public void Init(SimulationData simulationData, ProgressSaver progressSaver)
     {
-        _mainPanel.Init();
+        _progressSaver = progressSaver;
+
+        _mainPanel.Init(_progressSaver);
         _newGamePanel.Init(simulationData);
 
         _newGamePanel.Hide();
@@ -45,11 +48,13 @@ public class Menu : MonoBehaviour
 
     private void OnLoadGameButtonClicked()
     {
-        // load game
+        _progressSaver.SaveLoadState(true);
+        SceneManager.LoadScene(_gameScene);
     }
 
     private void OnStartGameButtonClicked()
     {
+        _progressSaver.SaveLoadState(false);
         SceneManager.LoadScene(_gameScene);
     }
 

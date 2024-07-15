@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpawnerExample
-{
     public class SpawnZone : MonoBehaviour
     {
         [SerializeField] private SpawnPoint _spawnPointPrefab;
@@ -59,4 +57,3 @@ namespace SpawnerExample
         }
 #endif
     }
-}

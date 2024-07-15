@@ -1,8 +1,3 @@
 using UnityEngine;
 
-namespace SpawnerExample
-{
-    public class ImpassableTerritory : MonoBehaviour
-    {
-    }
-}
+    public class ImpassableTerritory : MonoBehaviour { }

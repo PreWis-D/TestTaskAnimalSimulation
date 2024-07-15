@@ -16,6 +16,7 @@ public class GameInstaller : MonoBehaviour, IInstaller
         _containerBuilder = containerBuilder;
 
         BindSimulationData();
+        BindProgressSaver();
         BindSpawnersContainer();
         BindGameplayPanel();
         BindAnimalPrefab();
@@ -26,6 +27,12 @@ public class GameInstaller : MonoBehaviour, IInstaller
     {
         _containerBuilder
             .AddSingleton(typeof(SimulationData));
+    }
+
+    private void BindProgressSaver()
+    {
+        _containerBuilder
+           .AddSingleton(typeof(ProgressSaver));
     }
 
     private void BindSpawnersContainer()

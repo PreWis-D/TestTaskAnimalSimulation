@@ -1,4 +1,3 @@
-using SpawnerExample;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,9 +18,16 @@ public class FoodSpawner
         _animalSpawner.AnimalSpawned += OnAnimalSpawned;
     }
 
-    private void OnAnimalSpawned(Animal animal)
+    public void Load(ProgressSaver progressSaver)
     {
-        Spawn(animal);
+        for (int i = 0; i < progressSaver.Foods.Count; i++)
+        {
+            var food = Object.Instantiate(_foodPrefab, progressSaver.FoodPositions[i], Quaternion.identity, _foodsContainer.transform);
+            food.SetColor(progressSaver.AnimalColors[i]);
+            progressSaver.Animals[i].SetFood(food);
+            _foodsContainer.Add(food);
+            progressSaver.Foods[i] = food;
+        }
     }
 
     public void Spawn(Animal animal)
@@ -45,6 +51,11 @@ public class FoodSpawner
 
             Create(animal);
         }
+    }
+
+    private void OnAnimalSpawned(Animal animal)
+    {
+        Spawn(animal);
     }
 
     private void Create(Animal animal)

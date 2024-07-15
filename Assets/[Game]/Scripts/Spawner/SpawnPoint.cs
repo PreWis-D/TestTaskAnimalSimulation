@@ -1,7 +1,5 @@
 using UnityEngine;
 
-namespace SpawnerExample
-{
     [RequireComponent(typeof(SphereCollider))]
     public class SpawnPoint : MonoBehaviour
     {
@@ -46,4 +44,3 @@ namespace SpawnerExample
             }
         }
     }
-}

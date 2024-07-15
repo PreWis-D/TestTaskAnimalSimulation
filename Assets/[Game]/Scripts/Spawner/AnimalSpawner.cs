@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using SpawnerExample;
 using System;
 using System.Threading;
 using UnityEngine;
@@ -39,6 +38,18 @@ public class AnimalSpawner
     public void Deactivate()
     {
         _cancellationTokenSource.Cancel();
+    }
+
+    public void Load(ProgressSaver progressSaver)
+    {
+        for (int i = 0; i < progressSaver.Animals.Count; i++)
+        {
+            Animal animal = Object.Instantiate(_animalPrefab, progressSaver.AnimalPositions[i], progressSaver.AnimalRotations[i], _animalsContainer.transform);
+            animal.Init();
+            animal.ColorChanger.SetColor(progressSaver.AnimalColors[i]);
+            _animalsContainer.Add(animal);
+            progressSaver.Animals[i] = animal;
+        }
     }
 
     private async UniTask Spawn()
