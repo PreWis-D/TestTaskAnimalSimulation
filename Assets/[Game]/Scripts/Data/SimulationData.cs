@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class SimulationData
 {
-    private const string _saveFieldSize = "SaveFieldSize";
-    private const string _saveMaxCount = "SaveMaxCount";
-    private const string _saveSpawnForSecond = "SaveSpawnForSecond";
-    private const string _saveTimeSpeed = "SaveTimeSpeed";
+    private const string _saveFieldSize = "SaveNewGameFieldSize";
+    private const string _saveMaxCount = "SaveNewGameMaxCount";
+    private const string _saveSpawnForSecond = "SaveNewGameSpawnForSecond";
+    private const string _saveTimeSpeed = "SaveNewGameTimeSpeed";
 
     public int FieldSize { get; private set; } = 2;
     public int MaxCount { get; private set; } = 1;

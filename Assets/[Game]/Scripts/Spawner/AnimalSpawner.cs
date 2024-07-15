@@ -18,14 +18,15 @@ public class AnimalSpawner
 
     public event Action<Animal> AnimalSpawned;
 
-    public AnimalSpawner(SpawnZone spawnZone, AnimalsContainer animalsContainer, Animal animalPrefab, SimulationData simulationData)
+    public AnimalSpawner(SpawnZone spawnZone, AnimalsContainer animalsContainer, Animal animalPrefab
+        , int maxCount, int spawnForSecond)
     {
         _spawnZone = spawnZone;
         _animalsContainer = animalsContainer;
         _animalPrefab = animalPrefab;
 
-        _maxCount = simulationData.MaxCount;
-        _spawnCount = simulationData.SpawnForSecond;
+        _maxCount = maxCount;
+        _spawnCount = spawnForSecond;
 
         _cancellationTokenSource = new CancellationTokenSource();
     }

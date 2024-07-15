@@ -1,12 +1,14 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class ProgressSaver
 {
     private const string _saveLoadState = "SaveLoadState";
     private const string _saveGameSpeed = "SaveGameSpeed";
+
+    private const string _saveFieldSize = "SaveLoadGameFieldSize";
+    private const string _saveMaxCount = "SaveLoadGameMaxCount";
+    private const string _saveSpawnForSecond = "SaveLoadGameSpawnForSecond";
 
     private const string _saveAnimals = "SaveAnimals";
     private const string _saveAnimalPositions = "SaveAnimalPositions";
@@ -18,6 +20,9 @@ public class ProgressSaver
 
     public bool IsLoadState { get; private set; }
     public float GameSpeed { get; private set; }
+    public int Size { get; private set; } = 1;
+    public int MaxCount { get; private set; } = 1;
+    public int SpawnForSecond { get; private set; } = 1;
 
     public List<Animal> Animals { get; private set; } = new List<Animal>();
     public List<Vector3> AnimalPositions { get; private set; } = new List<Vector3>();
@@ -31,6 +36,10 @@ public class ProgressSaver
     {
         IsLoadState = PlayerPrefsExtra.GetBool(_saveLoadState);
         GameSpeed = PlayerPrefs.GetFloat(_saveGameSpeed);
+
+        Size = PlayerPrefs.GetInt(_saveFieldSize, Size);
+        MaxCount = PlayerPrefs.GetInt(_saveMaxCount, MaxCount);
+        SpawnForSecond = PlayerPrefs.GetInt(_saveSpawnForSecond, SpawnForSecond);
 
         Animals = PlayerPrefsExtra.GetList<Animal>(_saveAnimals);
         AnimalPositions = PlayerPrefsExtra.GetList<Vector3>(_saveAnimalPositions);
@@ -51,6 +60,24 @@ public class ProgressSaver
     {
         GameSpeed = timeSpeed;
         PlayerPrefs.SetFloat(_saveGameSpeed, GameSpeed);
+    }
+
+    public void SaveSize(SimulationData simulationData)
+    {
+        Size = simulationData.FieldSize;
+        PlayerPrefs.SetInt(_saveFieldSize, Size);
+    }
+
+    public void SaveMaxCount(SimulationData simulationData)
+    {
+        MaxCount = simulationData.MaxCount;
+        PlayerPrefs.SetInt(_saveMaxCount, MaxCount);
+    }
+
+    public void SaveSpawnForSecond(SimulationData simulationData)
+    {
+        SpawnForSecond = simulationData.SpawnForSecond;
+        PlayerPrefs.SetInt(_saveSpawnForSecond, SpawnForSecond);
     }
 
     public void SaveAnimals(List<Animal> animals)

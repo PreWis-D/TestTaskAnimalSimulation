@@ -8,15 +8,20 @@ public class SpawnersContainer : MonoBehaviour
 
     private AnimalSpawner _animalSpawner;
     private FoodSpawner _foodSpawner;
+    private SimulationData _simulationData;
     private ProgressSaver _progressSaver;
 
     public void Init(Animal animalPrefab, Food foodPrefab, SimulationData simulationData, ProgressSaver progressSaver)
     {
+        _simulationData = simulationData;
         _progressSaver = progressSaver;
 
-        _spawnZone.Init(simulationData.FieldSize);
+        _spawnZone.Init(_progressSaver.IsLoadState ? _progressSaver.Size : _simulationData.FieldSize);
 
-        _animalSpawner = new AnimalSpawner(_spawnZone, _animalsContainer, animalPrefab, simulationData);
+        _animalSpawner = new AnimalSpawner(_spawnZone, _animalsContainer, animalPrefab
+            , _progressSaver.IsLoadState ? _progressSaver.MaxCount : _simulationData.MaxCount
+            , _progressSaver.IsLoadState ? _progressSaver.SpawnForSecond : _simulationData.SpawnForSecond);
+
         _foodSpawner = new FoodSpawner(_spawnZone, _animalSpawner, foodPrefab, _foodsContainer);
 
         _animalsContainer.AnimalFoodEated += OnAnimalFoodEated;
@@ -36,6 +41,10 @@ public class SpawnersContainer : MonoBehaviour
 
     public void Save()
     {
+        _progressSaver.SaveSize(_simulationData);
+        _progressSaver.SaveMaxCount(_simulationData);
+        _progressSaver.SaveSpawnForSecond(_simulationData);
+
         _progressSaver.SaveAnimals(_animalsContainer.Animals);
         _progressSaver.SaveAnimalPositions(_animalsContainer.Animals);
         _progressSaver.SaveAnimalRotations(_animalsContainer.Animals);
