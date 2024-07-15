@@ -70,7 +70,10 @@ public class FoodSpawner
 
         int randomIndex = Random.Range(0, spawnPoints.Count);
 
-        return spawnPoints[randomIndex];
+        if (spawnPoints[randomIndex].IsFoodEmpty)
+            return spawnPoints[randomIndex];
+        else
+            return SearchSpawnPoint(animal);
     }
 
     private void OnDestroy()

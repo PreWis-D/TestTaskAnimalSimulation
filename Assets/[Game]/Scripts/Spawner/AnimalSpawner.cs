@@ -51,7 +51,7 @@ public class AnimalSpawner
             {
                 int randomNumber = Random.Range(0, _spawnZone.SpawnPoints.Count - 1);
 
-                if (_spawnZone.SpawnPoints[randomNumber].IsEmpty)
+                if (_spawnZone.SpawnPoints[randomNumber].IsAnimalEmpty)
                 {
                     Animal animal = Object.Instantiate(_animalPrefab, _spawnZone.SpawnPoints[randomNumber].transform.position, Quaternion.identity, _animalsContainer.transform);
                     animal.Init();
